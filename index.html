@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>Railway Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <section id="authView" class="screen">
+      <div class="card auth-card">
+        <div class="brand">Railway Notes</div>
+        <h1>Daily Work Diary</h1>
+        <p class="muted">Sign in to manage your private daily notes and reports.</p>
+        <form id="authForm">
+          <label>Email<input id="email" type="email" autocomplete="email" required></label>
+          <label>Password<input id="password" type="password" autocomplete="current-password" minlength="6" required></label>
+          <button id="authButton" type="submit">Sign in</button>
+        </form>
+        <button id="toggleAuth" class="link-button" type="button">Create an account</button>
+        <p id="authMessage" class="message"></p>
+      </div>
+    </section>
+
+    <section id="setupView" class="screen hidden">
+      <div class="card auth-card">
+        <div class="brand">Railway Notes</div>
+        <h1>Connect your database</h1>
+        <p class="muted">Enter your Supabase project URL and anonymous key. These are safe to put in a browser app; database security must be enforced with the supplied Row Level Security policy.</p>
+        <label>Supabase URL<input id="sbUrl" type="url" placeholder="https://your-project.supabase.co"></label>
+        <label>Supabase anon key<textarea id="sbKey" rows="4" placeholder="eyJ..."></textarea></label>
+        <button id="saveConfig">Save and continue</button>
+        <p id="setupMessage" class="message"></p>
+      </div>
+    </section>
+
+    <section id="mainView" class="hidden">
+      <header class="topbar">
+        <div><div class="brand">Railway Notes</div><div id="userEmail" class="muted small"></div></div>
+        <div class="top-actions"><button id="reportsBtn" class="secondary">Reports</button><button id="signOut" class="secondary">Sign out</button></div>
+      </header>
+      <main class="container">
+        <div class="calendar-card card">
+          <div class="calendar-head"><button id="prevMonth" class="icon-btn">‹</button><h2 id="monthTitle"></h2><button id="nextMonth" class="icon-btn">›</button></div>
+          <div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div id="calendar" class="calendar"></div>
+        </div>
+        <div id="notePanel" class="card note-card">
+          <div class="note-head"><div><h2 id="selectedDate">Select a date</h2><p id="noteStatus" class="muted small"></p></div><button id="todayBtn" class="secondary">Today</button></div>
+          <textarea id="noteText" placeholder="Enter your daily note..." disabled></textarea>
+          <div class="note-actions"><button id="saveNote" disabled>Save note</button><button id="deleteNote" class="danger" disabled>Delete</button></div>
+        </div>
+      </main>
+    </section>
+
+    <section id="reportsView" class="hidden">
+      <header class="topbar"><div><div class="brand">Reports</div><div class="muted small">Daily, weekly, monthly and custom reports</div></div><button id="backBtn" class="secondary">Back</button></header>
+      <main class="container report-container">
+        <div class="card report-controls">
+          <div class="report-type"><button data-type="daily" class="active">Daily</button><button data-type="weekly">Weekly</button><button data-type="monthly">Monthly</button><button data-type="custom">Custom</button></div>
+          <div class="date-controls"><label>From<input id="reportFrom" type="date"></label><label>To<input id="reportTo" type="date"></label><button id="generateReport">Generate</button></div>
+        </div>
+        <div id="reportOutput" class="card report-output"><p class="muted">Choose a report period and generate it.</p></div>
+      </main>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
